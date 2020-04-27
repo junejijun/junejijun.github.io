@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://junejijun.github.io">
-  <title>Tag: Java | June&#39;s Hexo Blog</title>
+  <title>第三讲：SQL语言的学习（五） | June&#39;s Hexo Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IT萌新">
-<meta property="og:type" content="website">
-<meta property="og:title" content="June&#39;s Hexo Blog">
-<meta property="og:url" content="http://junejijun.github.io/tags/Java/page/2/index.html">
+  <meta name="description" content="导语：介绍了DML语言（数据操作语言），主要包含有插入语句、修改语句和删除语句。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三讲：SQL语言的学习（五）">
+<meta property="og:url" content="http://junejijun.github.io/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/index.html">
 <meta property="og:site_name" content="June&#39;s Hexo Blog">
-<meta property="og:description" content="IT萌新">
+<meta property="og:description" content="导语：介绍了DML语言（数据操作语言），主要包含有插入语句、修改语句和删除语句。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-27T07:12:41.000Z">
+<meta property="article:modified_time" content="2020-04-27T07:15:12.613Z">
 <meta property="article:author" content="June">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="June&#39;s Hexo Blog" type="application/atom+xml">
@@ -146,63 +149,220 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-第三讲：SQL语言的学习（五）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/30/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6%E2%80%94%E2%80%94Java%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-03-30T11:28:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/30/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6%E2%80%94%E2%80%94Java%EF%BC%88%E4%B8%80%EF%BC%89/">第一篇：数据类型和运算符</a>
+    <h1 class="article-title" itemprop="name">
+      第三讲：SQL语言的学习（五）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2020-04-27T07:12:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>导语</strong>：介绍了DML语言（数据操作语言），主要包含有插入语句、修改语句和删除语句。</p>
+<a id="more"></a>
+
+<h3 id="3-DML语言的学习"><a href="#3-DML语言的学习" class="headerlink" title="3. DML语言的学习"></a>3. DML语言的学习</h3><h4 id="3-1-插入语句"><a href="#3-1-插入语句" class="headerlink" title="3.1 插入语句"></a>3.1 插入语句</h4><h5 id="3-1-1-经典插入"><a href="#3-1-1-经典插入" class="headerlink" title="3.1.1 经典插入"></a>3.1.1 经典插入</h5><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名(列名1,列名2,...) values(值1,值2,...)</span><br></pre></td></tr></table></figure>
+
+<p>一些注意事项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#1、插入的值的类型要与列的类型一致或兼容</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;id&#96;,&#96;name&#96;,&#96;sex&#96;,&#96;borndate&#96;,&#96;phone&#96;,&#96;photo&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(13,&#39;唐艺昕&#39;,&#39;女&#39;,&#39;1990-4-23&#39;,&#39;18988888888&#39;,NULL,2);</span><br><span class="line"></span><br><span class="line">#2、可以为null的列如何插入值</span><br><span class="line">#方式一：有列名，用null填充</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;id&#96;,&#96;name&#96;,&#96;sex&#96;,&#96;borndate&#96;,&#96;phone&#96;,&#96;photo&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(13,&#39;唐艺昕&#39;,&#39;女&#39;,&#39;1990-4-23&#39;,&#39;18988888888&#39;,NULL,2);</span><br><span class="line"></span><br><span class="line">#方式二：列名和值都省略不写</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;id&#96;,&#96;name&#96;,&#96;sex&#96;,&#96;borndate&#96;,&#96;phone&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(14,&#39;金星&#39;,&#39;女&#39;,&#39;1990-4-23&#39;,&#39;18988888888&#39;,9);</span><br><span class="line"></span><br><span class="line">#3、列的顺序是否可以调换：可以调换，但是值和列得对应</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;name&#96;,&#96;sex&#96;,&#96;id&#96;,&#96;phone&#96;)</span><br><span class="line">VALUES(&#39;蒋欣&#39;,&#39;女&#39;,15,&#39;13858538246&#39;);</span><br><span class="line"></span><br><span class="line">#4、列的个数和值的个数得相等</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;name&#96;,&#96;sex&#96;,&#96;id&#96;,&#96;phone&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(&#39;关晓彤&#39;,&#39;女&#39;,16,&#39;13858538246&#39;);</span><br><span class="line"></span><br><span class="line">#5、可以省略列名，默认所有列，而且列的顺序和表中列的顺序一致</span><br><span class="line">INSERT INTO &#96;beauty&#96;</span><br><span class="line">VALUES(17,&#39;吴倩&#39;,&#39;女&#39;,&#39;1988-4-25&#39;,13562366688,NULL,6);</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1-2-set插入"><a href="#3-1-2-set插入" class="headerlink" title="3.1.2 set插入"></a>3.1.2 set插入</h5><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名</span><br><span class="line">set 列名1&#x3D;值1,列名2&#x3D;值2,...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;beauty&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;id&#96;&#x3D;18,</span><br><span class="line">	&#96;name&#96;&#x3D;&#39;唐嫣&#39;,</span><br><span class="line">	&#96;sex&#96;&#x3D;&#39;女&#39;,</span><br><span class="line">	&#96;borndate&#96;&#x3D;&#39;1986-5-20&#39;,</span><br><span class="line">	&#96;phone&#96;&#x3D;&#39;185454655555&#39;,</span><br><span class="line">	&#96;photo&#96;&#x3D;NULL,</span><br><span class="line">	&#96;boyfriend_id&#96;&#x3D;11;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1-3-两种插入方式比较"><a href="#3-1-3-两种插入方式比较" class="headerlink" title="3.1.3 两种插入方式比较"></a>3.1.3 两种插入方式比较</h5><ul>
+<li>经典插入支持插入多行，但是set插入不支持；</li>
+<li>经典插入支持子查询，但是set插入不支持；</li>
+</ul>
+<h4 id="3-2-修改语句"><a href="#3-2-修改语句" class="headerlink" title="3.2 修改语句"></a>3.2 修改语句</h4><h5 id="3-2-1-修改单表的记录"><a href="#3-2-1-修改单表的记录" class="headerlink" title="3.2.1 修改单表的记录"></a>3.2.1 修改单表的记录</h5><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update 表名</span><br><span class="line">set 列1&#x3D;新值1,列2&#x3D;新值2,...</span><br><span class="line">where 筛选条件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#修改单表的记录</span><br><span class="line">#案例1：修改beauty表中唐姓女神的电话为872863828</span><br><span class="line">UPDATE &#96;beauty&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;phone&#96;&#x3D;&#39;872863828&#39;</span><br><span class="line">WHERE</span><br><span class="line">	&#96;name&#96; LIKE &#39;唐%&#39;;</span><br><span class="line">	</span><br><span class="line">#案例2：修改boys表中id为2的名称为吴亦凡，userCP&#x3D;6</span><br><span class="line">UPDATE &#96;boys&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;boyName&#96;&#x3D;&#39;吴亦凡&#39;,</span><br><span class="line">	&#96;userCP&#96;&#x3D;6</span><br><span class="line">WHERE</span><br><span class="line">	&#96;id&#96;&#x3D;2;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-2-修改多表的记录"><a href="#3-2-2-修改多表的记录" class="headerlink" title="3.2.2 修改多表的记录"></a>3.2.2 修改多表的记录</h5><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#sql92</span><br><span class="line">update 表1 别名1,表2 别名2</span><br><span class="line">set 列&#x3D;值,...</span><br><span class="line">where 连接条件</span><br><span class="line">and 筛选条件;</span><br><span class="line"></span><br><span class="line">#sql99</span><br><span class="line">update 表1 别名1</span><br><span class="line">join type join 表2 别名2</span><br><span class="line">on 连接条件</span><br><span class="line">set 列&#x3D;值,...</span><br><span class="line">where 连接条件;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#修改多表的记录</span><br><span class="line">#案例1：修改张无忌的女友手机号为10086</span><br><span class="line">UPDATE</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">INNER JOIN</span><br><span class="line">	&#96;beauty&#96; g</span><br><span class="line">ON</span><br><span class="line">	b.&#96;id&#96;&#x3D;g.&#96;boyfriend_id&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;phone&#96;&#x3D;&#39;10086&#39;</span><br><span class="line">WHERE</span><br><span class="line">	b.&#96;boyName&#96;&#x3D;&#39;张无忌&#39;;</span><br><span class="line">	</span><br><span class="line">#案例2：修改没有男朋友的女神的男朋友编号都为2号</span><br><span class="line">UPDATE</span><br><span class="line">	&#96;beauty&#96; g</span><br><span class="line">LEFT JOIN</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">ON</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;b.&#96;id&#96;</span><br><span class="line">SET</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;2</span><br><span class="line">WHERE</span><br><span class="line">	 b.&#96;id&#96; IS NULL;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-删除语句"><a href="#3-3-删除语句" class="headerlink" title="3.3 删除语句"></a>3.3 删除语句</h4><h5 id="3-3-1-方式一"><a href="#3-3-1-方式一" class="headerlink" title="3.3.1 方式一"></a>3.3.1 方式一</h5><ol>
+<li>单表删除</li>
+</ol>
+<p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete from 表名</span><br><span class="line">where 筛选条件;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#案例1：删除手机号以9结尾的女神信息</span><br><span class="line">DELETE FROM &#96;beauty&#96;</span><br><span class="line">WHERE &#96;phone&#96; LIKE &#39;%9&#39;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>多表删除</li>
+</ol>
+<p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#sql92</span><br><span class="line">delete 别名1&#x2F;别名2</span><br><span class="line">from 表1 别名1,表2 别名2</span><br><span class="line">where 连接条件</span><br><span class="line">and 筛选条件;</span><br><span class="line"></span><br><span class="line">#sql99</span><br><span class="line">delete 别名1&#x2F;别名2</span><br><span class="line">from 表1 别名1</span><br><span class="line">join type join 表2 别名2</span><br><span class="line">on 连接条件</span><br><span class="line">where 筛选条件;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#案例1：删除张无忌女友的信息</span><br><span class="line">DELETE g</span><br><span class="line">FROM &#96;beauty&#96; g</span><br><span class="line">LEFT JOIN</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">ON</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;b.&#96;id&#96;</span><br><span class="line">WHERE</span><br><span class="line">	b.&#96;boyName&#96;&#x3D;&#39;张无忌&#39;;</span><br><span class="line">	</span><br><span class="line">#案例2：删除黄晓明的信息以及其女友的信息</span><br><span class="line">DELETE g,b</span><br><span class="line">FROM &#96;beauty&#96; g</span><br><span class="line">LEFT JOIN</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">ON</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;b.&#96;id&#96;</span><br><span class="line">WHERE</span><br><span class="line">	b.&#96;boyName&#96;&#x3D;&#39;黄晓明&#39;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-3-2-方式二"><a href="#3-3-2-方式二" class="headerlink" title="3.3.2 方式二"></a>3.3.2 方式二</h5><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truncate table 表名;</span><br></pre></td></tr></table></figure>
+
+<p><em>注：删除整个表格，因而不能添加筛选条件；</em></p>
+<h5 id="3-3-3-两种删除方式比较"><a href="#3-3-3-两种删除方式比较" class="headerlink" title="3.3.3 两种删除方式比较"></a>3.3.3 两种删除方式比较</h5><ul>
+<li>delete可以加where 筛选条件，而truncate不能；</li>
+<li>truncate删除效率高一些；</li>
+<li>假如要删除的表中有自增长列：如果使用delete删除后，再插入数据，自增长列的值从断点开始；而使用truncate删除后，再插入数据，自增长列的值从1开始；</li>
+<li>truncate删除没有返回值，而delete删除有返回值；</li>
+<li>truncate删除不能回滚，而delete删除能回滚；</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://junejijun.github.io/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/04/26/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第三讲：SQL语言的学习（四）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/Java/">&amp;laquo; Prev</a><a class="page-number" href="/tags/Java/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -226,9 +386,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
