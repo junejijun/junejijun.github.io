@@ -6,19 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://junejijun.github.io">
-  <title>第三讲：SQL语言的学习（五） | June&#39;s Hexo Blog</title>
+  <title>第四讲：视图 | June&#39;s Hexo Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="导语：介绍了DML语言（数据操作语言），主要包含有插入语句、修改语句和删除语句。">
+  <meta name="description" content="导语：介绍了视图的概念、相关操作和与表的区别。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第三讲：SQL语言的学习（五）">
-<meta property="og:url" content="http://junejijun.github.io/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/index.html">
+<meta property="og:title" content="第四讲：视图">
+<meta property="og:url" content="http://junejijun.github.io/2020/04/29/%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E8%A7%86%E5%9B%BE/index.html">
 <meta property="og:site_name" content="June&#39;s Hexo Blog">
-<meta property="og:description" content="导语：介绍了DML语言（数据操作语言），主要包含有插入语句、修改语句和删除语句。">
+<meta property="og:description" content="导语：介绍了视图的概念、相关操作和与表的区别。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-27T07:12:41.000Z">
-<meta property="article:modified_time" content="2020-04-27T07:15:12.613Z">
+<meta property="article:published_time" content="2020-04-29T11:35:24.000Z">
+<meta property="article:modified_time" content="2020-04-29T11:37:21.846Z">
 <meta property="article:author" content="June">
-<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="June&#39;s Hexo Blog" type="application/atom+xml">
@@ -149,81 +148,87 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-第三讲：SQL语言的学习（五）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-第四讲：视图" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      第三讲：SQL语言的学习（五）
+      第四讲：视图
     </h1>
   
 
         
-        <a href="/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-04-27T07:12:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-27</time>
+        <a href="/2020/04/29/%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E8%A7%86%E5%9B%BE/" class="archive-article-date">
+  	<time datetime="2020-04-29T11:35:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>导语</strong>：介绍了DML语言（数据操作语言），主要包含有插入语句、修改语句和删除语句。</p>
+        <p><strong>导语</strong>：介绍了视图的概念、相关操作和与表的区别。</p>
 <a id="more"></a>
 
-<h3 id="3-DML语言的学习"><a href="#3-DML语言的学习" class="headerlink" title="3. DML语言的学习"></a>3. DML语言的学习</h3><h4 id="3-1-插入语句"><a href="#3-1-插入语句" class="headerlink" title="3.1 插入语句"></a>3.1 插入语句</h4><h5 id="3-1-1-经典插入"><a href="#3-1-1-经典插入" class="headerlink" title="3.1.1 经典插入"></a>3.1.1 经典插入</h5><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名(列名1,列名2,...) values(值1,值2,...)</span><br></pre></td></tr></table></figure>
-
-<p>一些注意事项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#1、插入的值的类型要与列的类型一致或兼容</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;id&#96;,&#96;name&#96;,&#96;sex&#96;,&#96;borndate&#96;,&#96;phone&#96;,&#96;photo&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(13,&#39;唐艺昕&#39;,&#39;女&#39;,&#39;1990-4-23&#39;,&#39;18988888888&#39;,NULL,2);</span><br><span class="line"></span><br><span class="line">#2、可以为null的列如何插入值</span><br><span class="line">#方式一：有列名，用null填充</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;id&#96;,&#96;name&#96;,&#96;sex&#96;,&#96;borndate&#96;,&#96;phone&#96;,&#96;photo&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(13,&#39;唐艺昕&#39;,&#39;女&#39;,&#39;1990-4-23&#39;,&#39;18988888888&#39;,NULL,2);</span><br><span class="line"></span><br><span class="line">#方式二：列名和值都省略不写</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;id&#96;,&#96;name&#96;,&#96;sex&#96;,&#96;borndate&#96;,&#96;phone&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(14,&#39;金星&#39;,&#39;女&#39;,&#39;1990-4-23&#39;,&#39;18988888888&#39;,9);</span><br><span class="line"></span><br><span class="line">#3、列的顺序是否可以调换：可以调换，但是值和列得对应</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;name&#96;,&#96;sex&#96;,&#96;id&#96;,&#96;phone&#96;)</span><br><span class="line">VALUES(&#39;蒋欣&#39;,&#39;女&#39;,15,&#39;13858538246&#39;);</span><br><span class="line"></span><br><span class="line">#4、列的个数和值的个数得相等</span><br><span class="line">INSERT INTO &#96;beauty&#96;(&#96;name&#96;,&#96;sex&#96;,&#96;id&#96;,&#96;phone&#96;,&#96;boyfriend_id&#96;)</span><br><span class="line">VALUES(&#39;关晓彤&#39;,&#39;女&#39;,16,&#39;13858538246&#39;);</span><br><span class="line"></span><br><span class="line">#5、可以省略列名，默认所有列，而且列的顺序和表中列的顺序一致</span><br><span class="line">INSERT INTO &#96;beauty&#96;</span><br><span class="line">VALUES(17,&#39;吴倩&#39;,&#39;女&#39;,&#39;1988-4-25&#39;,13562366688,NULL,6);</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-1-2-set插入"><a href="#3-1-2-set插入" class="headerlink" title="3.1.2 set插入"></a>3.1.2 set插入</h5><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名</span><br><span class="line">set 列名1&#x3D;值1,列名2&#x3D;值2,...</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &#96;beauty&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;id&#96;&#x3D;18,</span><br><span class="line">	&#96;name&#96;&#x3D;&#39;唐嫣&#39;,</span><br><span class="line">	&#96;sex&#96;&#x3D;&#39;女&#39;,</span><br><span class="line">	&#96;borndate&#96;&#x3D;&#39;1986-5-20&#39;,</span><br><span class="line">	&#96;phone&#96;&#x3D;&#39;185454655555&#39;,</span><br><span class="line">	&#96;photo&#96;&#x3D;NULL,</span><br><span class="line">	&#96;boyfriend_id&#96;&#x3D;11;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-1-3-两种插入方式比较"><a href="#3-1-3-两种插入方式比较" class="headerlink" title="3.1.3 两种插入方式比较"></a>3.1.3 两种插入方式比较</h5><ul>
-<li>经典插入支持插入多行，但是set插入不支持；</li>
-<li>经典插入支持子查询，但是set插入不支持；</li>
+<h2 id="第四讲：视图"><a href="#第四讲：视图" class="headerlink" title="第四讲：视图"></a>第四讲：视图</h2><h3 id="1-视图介绍"><a href="#1-视图介绍" class="headerlink" title="1. 视图介绍"></a>1. 视图介绍</h3><p>含义：MySQL从5.0.1版本开始提供视图功能，这是一种虚拟存在的表，行和列的数据来定义视图的查询中使用的表，并且是在使用视图时动态生成的，只保存了sql逻辑，不保存查询结果；</p>
+<p>应用场景：</p>
+<ul>
+<li>多个地方用到同样的查询结果；</li>
+<li>该查询结果使用的sql语句较复杂；</li>
 </ul>
-<h4 id="3-2-修改语句"><a href="#3-2-修改语句" class="headerlink" title="3.2 修改语句"></a>3.2 修改语句</h4><h5 id="3-2-1-修改单表的记录"><a href="#3-2-1-修改单表的记录" class="headerlink" title="3.2.1 修改单表的记录"></a>3.2.1 修改单表的记录</h5><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update 表名</span><br><span class="line">set 列1&#x3D;新值1,列2&#x3D;新值2,...</span><br><span class="line">where 筛选条件</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#示例：查询姓张的学生姓名和专业名</span><br><span class="line">#未使用视图</span><br><span class="line">SELECT &#96;stuname&#96;,&#96;majorName&#96;</span><br><span class="line">FROM &#96;stuinfo&#96; s</span><br><span class="line">INNER JOIN &#96;major&#96; m</span><br><span class="line">ON s.&#96;majorId&#96;&#x3D;m.&#96;id&#96;</span><br><span class="line">WHERE &#96;stuname&#96; LIKE &#39;张%&#39;;</span><br><span class="line"></span><br><span class="line">#使用视图</span><br><span class="line">CREATE VIEW v1</span><br><span class="line">AS</span><br><span class="line">SELECT &#96;stuname&#96;,&#96;majorName&#96;</span><br><span class="line">FROM &#96;stuinfo&#96; s</span><br><span class="line">INNER JOIN &#96;major&#96; m</span><br><span class="line">ON s.&#96;majorId&#96;&#x3D;m.&#96;id&#96;;</span><br><span class="line"></span><br><span class="line">SELECT *</span><br><span class="line">FROM v1</span><br><span class="line">WHERE &#96;stuname&#96; LIKE &#39;张%&#39;;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#修改单表的记录</span><br><span class="line">#案例1：修改beauty表中唐姓女神的电话为872863828</span><br><span class="line">UPDATE &#96;beauty&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;phone&#96;&#x3D;&#39;872863828&#39;</span><br><span class="line">WHERE</span><br><span class="line">	&#96;name&#96; LIKE &#39;唐%&#39;;</span><br><span class="line">	</span><br><span class="line">#案例2：修改boys表中id为2的名称为吴亦凡，userCP&#x3D;6</span><br><span class="line">UPDATE &#96;boys&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;boyName&#96;&#x3D;&#39;吴亦凡&#39;,</span><br><span class="line">	&#96;userCP&#96;&#x3D;6</span><br><span class="line">WHERE</span><br><span class="line">	&#96;id&#96;&#x3D;2;</span><br></pre></td></tr></table></figure>
+<h3 id="2-视图相关操作"><a href="#2-视图相关操作" class="headerlink" title="2. 视图相关操作"></a>2. 视图相关操作</h3><h4 id="2-1-视图的创建"><a href="#2-1-视图的创建" class="headerlink" title="2.1 视图的创建"></a>2.1 视图的创建</h4><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create view 视图名</span><br><span class="line">as</span><br><span class="line">查询语句;</span><br></pre></td></tr></table></figure>
 
-<h5 id="3-2-2-修改多表的记录"><a href="#3-2-2-修改多表的记录" class="headerlink" title="3.2.2 修改多表的记录"></a>3.2.2 修改多表的记录</h5><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#sql92</span><br><span class="line">update 表1 别名1,表2 别名2</span><br><span class="line">set 列&#x3D;值,...</span><br><span class="line">where 连接条件</span><br><span class="line">and 筛选条件;</span><br><span class="line"></span><br><span class="line">#sql99</span><br><span class="line">update 表1 别名1</span><br><span class="line">join type join 表2 别名2</span><br><span class="line">on 连接条件</span><br><span class="line">set 列&#x3D;值,...</span><br><span class="line">where 连接条件;</span><br></pre></td></tr></table></figure>
+<p>案例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#创建视图</span><br><span class="line">#案例1：查询姓名中包含字符a的员工名、部门名和工种信息</span><br><span class="line">CREATE VIEW myv1</span><br><span class="line">AS</span><br><span class="line">SELECT &#96;last_name&#96;,&#96;department_name&#96;,&#96;job_title&#96;</span><br><span class="line">FROM &#96;employees&#96; e</span><br><span class="line">INNER JOIN &#96;departments&#96; d</span><br><span class="line">ON e.&#96;department_id&#96;&#x3D;d.&#96;department_id&#96;</span><br><span class="line">INNER JOIN &#96;jobs&#96; j</span><br><span class="line">ON e.&#96;job_id&#96;&#x3D;j.&#96;job_id&#96;;</span><br><span class="line"></span><br><span class="line">SELECT *</span><br><span class="line">FROM myv1</span><br><span class="line">WHERE &#96;last_name&#96; LIKE &#39;%a%&#39;;</span><br><span class="line"></span><br><span class="line">#案例2：查询各部门的平均工资级别</span><br><span class="line">#创建视图查看每个部门的平均工资</span><br><span class="line">CREATE VIEW myv2</span><br><span class="line">AS</span><br><span class="line">SELECT &#96;department_id&#96;,AVG(salary)</span><br><span class="line">FROM &#96;employees&#96;</span><br><span class="line">GROUP BY &#96;department_id&#96;;</span><br><span class="line"></span><br><span class="line">SELECT myv2.&#96;avg(salary)&#96;,g.&#96;grade_level&#96;</span><br><span class="line">FROM myv2</span><br><span class="line">INNER JOIN &#96;job_grades&#96; g</span><br><span class="line">ON myv2.&#96;avg(salary)&#96; BETWEEN g.&#96;lowest_sal&#96; AND g.&#96;highest_sal&#96;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#案例3：查询平均工资最低的部门信息</span><br><span class="line">SELECT *</span><br><span class="line">FROM myv2</span><br><span class="line">ORDER BY myv2.&#96;avg(salary)&#96; LIMIT 1;</span><br><span class="line"></span><br><span class="line">#案例4：查询平均工资最低的部门名和工资</span><br><span class="line">CREATE VIEW myv3</span><br><span class="line">AS</span><br><span class="line">SELECT *</span><br><span class="line">FROM myv2</span><br><span class="line">ORDER BY myv2.&#96;avg(salary)&#96; LIMIT 1;</span><br><span class="line"></span><br><span class="line">SELECT d.*,myv3.&#96;avg(salary)&#96;</span><br><span class="line">FROM myv3</span><br><span class="line">INNER JOIN &#96;departments&#96; d</span><br><span class="line">ON d.&#96;department_id&#96;&#x3D;myv3.&#96;department_id&#96;;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#修改多表的记录</span><br><span class="line">#案例1：修改张无忌的女友手机号为10086</span><br><span class="line">UPDATE</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">INNER JOIN</span><br><span class="line">	&#96;beauty&#96; g</span><br><span class="line">ON</span><br><span class="line">	b.&#96;id&#96;&#x3D;g.&#96;boyfriend_id&#96;</span><br><span class="line">SET</span><br><span class="line">	&#96;phone&#96;&#x3D;&#39;10086&#39;</span><br><span class="line">WHERE</span><br><span class="line">	b.&#96;boyName&#96;&#x3D;&#39;张无忌&#39;;</span><br><span class="line">	</span><br><span class="line">#案例2：修改没有男朋友的女神的男朋友编号都为2号</span><br><span class="line">UPDATE</span><br><span class="line">	&#96;beauty&#96; g</span><br><span class="line">LEFT JOIN</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">ON</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;b.&#96;id&#96;</span><br><span class="line">SET</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;2</span><br><span class="line">WHERE</span><br><span class="line">	 b.&#96;id&#96; IS NULL;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-3-删除语句"><a href="#3-3-删除语句" class="headerlink" title="3.3 删除语句"></a>3.3 删除语句</h4><h5 id="3-3-1-方式一"><a href="#3-3-1-方式一" class="headerlink" title="3.3.1 方式一"></a>3.3.1 方式一</h5><ol>
-<li>单表删除</li>
+<p>视图的优点：</p>
+<ol>
+<li>重用sql语句；</li>
+<li>简化复杂的sql操作，不必知道它的查询细节；</li>
+<li>保护数据，提高安全性；</li>
 </ol>
-<p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete from 表名</span><br><span class="line">where 筛选条件;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-视图的修改"><a href="#2-2-视图的修改" class="headerlink" title="2.2 视图的修改"></a>2.2 视图的修改</h4><h5 id="2-2-1-方式一"><a href="#2-2-1-方式一" class="headerlink" title="2.2.1 方式一"></a>2.2.1 方式一</h5><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create or replace view 视图名</span><br><span class="line">as</span><br><span class="line">查询语句;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#案例1：删除手机号以9结尾的女神信息</span><br><span class="line">DELETE FROM &#96;beauty&#96;</span><br><span class="line">WHERE &#96;phone&#96; LIKE &#39;%9&#39;;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#方式一</span><br><span class="line">CREATE OR REPLACE VIEW myv3</span><br><span class="line">AS</span><br><span class="line">SELECT &#96;job_id&#96;,AVG(salary)</span><br><span class="line">FROM &#96;employees&#96;</span><br><span class="line">GROUP BY &#96;job_id&#96;;</span><br><span class="line"></span><br><span class="line">SELECT *</span><br><span class="line">FROM myv3;</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>多表删除</li>
+<h5 id="2-2-2-方式二"><a href="#2-2-2-方式二" class="headerlink" title="2.2.2 方式二"></a>2.2.2 方式二</h5><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter  view 视图名</span><br><span class="line">as</span><br><span class="line">查询语句;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#方式二</span><br><span class="line">ALTER VIEW myv3</span><br><span class="line">AS</span><br><span class="line">SELECT &#96;department_id&#96;,AVG(salary)</span><br><span class="line">FROM &#96;employees&#96;</span><br><span class="line">GROUP BY &#96;department_id&#96;;</span><br><span class="line"></span><br><span class="line">SELECT *</span><br><span class="line">FROM myv3;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-视图的删除"><a href="#2-3-视图的删除" class="headerlink" title="2.3 视图的删除"></a>2.3 视图的删除</h4><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop view 视图名1,视图名2,...;</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#删除视图</span><br><span class="line">DROP VIEW myv1,myv2,myv3;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-视图的查看"><a href="#2-4-视图的查看" class="headerlink" title="2.4 视图的查看"></a>2.4 视图的查看</h4><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查看视图</span><br><span class="line">SHOW CREATE VIEW 视图名;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-5-视图的更新"><a href="#2-5-视图的更新" class="headerlink" title="2.5 视图的更新"></a>2.5 视图的更新</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#更新视图</span><br><span class="line">#插入数据</span><br><span class="line">INSERT INTO myv1 VALUES(&#39;June&#39;,&#39;june@163.com&#39;);</span><br><span class="line"></span><br><span class="line">#修改数据</span><br><span class="line">UPDATE myv1 SET &#96;last_name&#96; &#x3D; &#39;July&#39; WHERE &#96;last_name&#96;&#x3D;&#39;June&#39;;</span><br><span class="line"></span><br><span class="line">#删除数据</span><br><span class="line">DELETE FROM myv1 WHERE &#96;last_name&#96;&#x3D;&#39;July&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>具备以下特点的视图是不允许更新的：</p>
+<ol>
+<li>包含分组函数、distinct、group by、having、union或者union all等关键字的sql语句；</li>
+<li>常量视图；</li>
+<li>select语句中包含子查询；</li>
+<li>join；</li>
+<li>from一个不能更新的视图；</li>
+<li>where子句的子查询引用了from子句中的表；</li>
 </ol>
-<p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#sql92</span><br><span class="line">delete 别名1&#x2F;别名2</span><br><span class="line">from 表1 别名1,表2 别名2</span><br><span class="line">where 连接条件</span><br><span class="line">and 筛选条件;</span><br><span class="line"></span><br><span class="line">#sql99</span><br><span class="line">delete 别名1&#x2F;别名2</span><br><span class="line">from 表1 别名1</span><br><span class="line">join type join 表2 别名2</span><br><span class="line">on 连接条件</span><br><span class="line">where 筛选条件;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#案例1：删除张无忌女友的信息</span><br><span class="line">DELETE g</span><br><span class="line">FROM &#96;beauty&#96; g</span><br><span class="line">LEFT JOIN</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">ON</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;b.&#96;id&#96;</span><br><span class="line">WHERE</span><br><span class="line">	b.&#96;boyName&#96;&#x3D;&#39;张无忌&#39;;</span><br><span class="line">	</span><br><span class="line">#案例2：删除黄晓明的信息以及其女友的信息</span><br><span class="line">DELETE g,b</span><br><span class="line">FROM &#96;beauty&#96; g</span><br><span class="line">LEFT JOIN</span><br><span class="line">	&#96;boys&#96; b</span><br><span class="line">ON</span><br><span class="line">	g.&#96;boyfriend_id&#96;&#x3D;b.&#96;id&#96;</span><br><span class="line">WHERE</span><br><span class="line">	b.&#96;boyName&#96;&#x3D;&#39;黄晓明&#39;;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-3-2-方式二"><a href="#3-3-2-方式二" class="headerlink" title="3.3.2 方式二"></a>3.3.2 方式二</h5><p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truncate table 表名;</span><br></pre></td></tr></table></figure>
-
-<p><em>注：删除整个表格，因而不能添加筛选条件；</em></p>
-<h5 id="3-3-3-两种删除方式比较"><a href="#3-3-3-两种删除方式比较" class="headerlink" title="3.3.3 两种删除方式比较"></a>3.3.3 两种删除方式比较</h5><ul>
-<li>delete可以加where 筛选条件，而truncate不能；</li>
-<li>truncate删除效率高一些；</li>
-<li>假如要删除的表中有自增长列：如果使用delete删除后，再插入数据，自增长列的值从断点开始；而使用truncate删除后，再插入数据，自增长列的值从1开始；</li>
-<li>truncate删除没有返回值，而delete删除有返回值；</li>
-<li>truncate删除不能回滚，而delete删除能回滚；</li>
-</ul>
+<h3 id="3-视图和表的对比"><a href="#3-视图和表的对比" class="headerlink" title="3. 视图和表的对比"></a>3. 视图和表的对比</h3><ol>
+<li>创建语法的关键字：create view和create table；</li>
+<li>是否实际占用物理空间：视图不占用，表占用；</li>
+<li>视图一般不支持更新，表支持更新；</li>
+</ol>
 
       
 
@@ -253,17 +258,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -314,7 +308,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://junejijun.github.io/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://junejijun.github.io/2020/04/29/%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E8%A7%86%E5%9B%BE/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -328,18 +322,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/28/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          第三讲：SQL语言的学习（六）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/04/26/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第三讲：SQL语言的学习（四）</div>
+    <a href="/2020/04/28/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第三讲：SQL语言的学习（六）</div>
       <i class="icon-circle-right"></i>
     </a>
   
