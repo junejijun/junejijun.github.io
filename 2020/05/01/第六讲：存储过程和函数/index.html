@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://junejijun.github.io">
-  <title>June&#39;s Hexo Blog</title>
+  <title>第六讲：存储过程和函数 | June&#39;s Hexo Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="IT萌新">
-<meta property="og:type" content="website">
-<meta property="og:title" content="June&#39;s Hexo Blog">
-<meta property="og:url" content="http://junejijun.github.io/index.html">
+  <meta name="description" content="导语：介绍了存储过程和函数相关创建及调用的语法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第六讲：存储过程和函数">
+<meta property="og:url" content="http://junejijun.github.io/2020/05/01/%E7%AC%AC%E5%85%AD%E8%AE%B2%EF%BC%9A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="June&#39;s Hexo Blog">
-<meta property="og:description" content="IT萌新">
+<meta property="og:description" content="导语：介绍了存储过程和函数相关创建及调用的语法。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-01T08:19:51.000Z">
+<meta property="article:modified_time" content="2020-05-01T08:21:40.552Z">
 <meta property="article:author" content="June">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="June&#39;s Hexo Blog" type="application/atom+xml">
@@ -146,16 +149,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-第六讲：存储过程和函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-第六讲：存储过程和函数" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/01/%E7%AC%AC%E5%85%AD%E8%AE%B2%EF%BC%9A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/">第六讲：存储过程和函数</a>
+    <h1 class="article-title" itemprop="name">
+      第六讲：存储过程和函数
     </h1>
   
 
@@ -169,11 +170,91 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><strong>导语</strong>：介绍了存储过程和函数相关创建及调用的语法。</p>
-        
-          <a class="article-more-a" href="/2020/05/01/%E7%AC%AC%E5%85%AD%E8%AE%B2%EF%BC%9A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/#more">more >></a>
-        
+<a id="more"></a>
+
+<h2 id="第六讲：存储过程和函数"><a href="#第六讲：存储过程和函数" class="headerlink" title="第六讲：存储过程和函数"></a>第六讲：存储过程和函数</h2><h3 id="1-存储过程"><a href="#1-存储过程" class="headerlink" title="1. 存储过程"></a>1. 存储过程</h3><h4 id="1-1-基本介绍"><a href="#1-1-基本介绍" class="headerlink" title="1.1 基本介绍"></a>1.1 基本介绍</h4><p>定义：一组预先编译好的sql语句的集合，可理解成批处理语句；</p>
+<p>优点：</p>
+<ul>
+<li>提高代码的重用性；</li>
+<li>简化操作；</li>
+<li>减少编译次数并且减少了和数据库服务器的链接次数，提高了效率；</li>
+</ul>
+<h4 id="1-2-相关语法"><a href="#1-2-相关语法" class="headerlink" title="1.2 相关语法"></a>1.2 相关语法</h4><p>1、创建语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create procedure 存储过程名(参数列表)</span><br><span class="line">begin</span><br><span class="line">	存储过程体（一组合法的sql语句）</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p><em>注：</em></p>
+<ul>
+<li>参数列表包含三部分：参数模式 参数名 参数类型；</li>
+<li>参数模式：in（可作为输入，需要传入值）、out（可作为输出，可作为返回值）和inout（既可以作为输入，又可以作为输出）；</li>
+<li>如果存储过程体仅仅只有一句话，begin end可以省略；</li>
+<li>存储过程体中的每条sql语句的结尾要求必须加分号，存储过程的结尾可以使用delimiter重新设置；</li>
+</ul>
+<p>2、调用语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call 存储过程名(实参列表);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-案例演示"><a href="#1-3-案例演示" class="headerlink" title="1.3 案例演示"></a>1.3 案例演示</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">#1、空参列表</span><br><span class="line">#案例1：插入五条记录到admin表中</span><br><span class="line">DELIMITER $</span><br><span class="line">CREATE PROCEDURE myp1()</span><br><span class="line">BEGIN</span><br><span class="line">	INSERT INTO admin(&#96;username&#96;,&#96;password&#96;) VALUES(&#39;june&#39;,&#39;0000&#39;),</span><br><span class="line">	(&#39;july&#39;,&#39;1111&#39;),(&#39;simon&#39;,&#39;3333&#39;),(&#39;andy&#39;,&#39;2222&#39;),(&#39;rose&#39;,&#39;5555&#39;);</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">CALL myp1()$</span><br><span class="line"></span><br><span class="line">#2、创建带in模式参数的存储过程</span><br><span class="line">#案例1：创建存储过程实现根据女神名，查询对应男神信息</span><br><span class="line">CREATE PROCEDURE myp2(IN beautyName VARCHAR(20))</span><br><span class="line">BEGIN</span><br><span class="line">	SELECT b.*</span><br><span class="line">	FROM &#96;boys&#96; b</span><br><span class="line">	RIGHT JOIN &#96;beauty&#96; g</span><br><span class="line">	ON b.&#96;id&#96;&#x3D;g.&#96;boyfriend_id&#96;</span><br><span class="line">	WHERE g.&#96;name&#96;&#x3D;beautyName;</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">CALL myp2(&#39;柳岩&#39;)$</span><br><span class="line"></span><br><span class="line">#案例2：创建存储过程，检测用户是否登录成功</span><br><span class="line">CREATE PROCEDURE myp3(IN username VARCHAR(20),IN PASSWORD VARCHAR(20))</span><br><span class="line">BEGIN</span><br><span class="line">	DECLARE result INT DEFAULT 0;</span><br><span class="line">	SELECT COUNT(*) INTO result</span><br><span class="line">	FROM &#96;admin&#96; ad</span><br><span class="line">	WHERE ad.&#96;username&#96;&#x3D;username</span><br><span class="line">	AND ad.&#96;password&#96;&#x3D;PASSWORD;</span><br><span class="line">	SELECT IF(result&gt;0,&#39;成功&#39;,&#39;失败&#39;);</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">CALL myp3(&#39;june&#39;,&#39;0000&#39;)$</span><br><span class="line"></span><br><span class="line">#3、创建带out模式参数的存储过程</span><br><span class="line">#案例1：根据女神名，返回对应男神名</span><br><span class="line">CREATE PROCEDURE myp4(IN beautyName VARCHAR(20),OUT boyName VARCHAR(20))</span><br><span class="line">BEGIN</span><br><span class="line">	SELECT b.&#96;boyName&#96; INTO boyName</span><br><span class="line">	FROM &#96;boys&#96; b</span><br><span class="line">	INNER JOIN &#96;beauty&#96; g</span><br><span class="line">	ON b.&#96;id&#96;&#x3D;g.&#96;boyfriend_id&#96;</span><br><span class="line">	WHERE g.&#96;name&#96;&#x3D;beautyName;</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">CALL myp4(&#39;小昭&#39;,@bName)$</span><br><span class="line"></span><br><span class="line">#案例2：根据女神名，返回对应的男神名和男神魅力值</span><br><span class="line">CREATE PROCEDURE myp5(IN beautyName VARCHAR(20),OUT boyName VARCHAR(20),OUT userCP INT)</span><br><span class="line">BEGIN</span><br><span class="line">	SELECT b.&#96;boyName&#96;,b.&#96;userCP&#96; INTO boyName,userCP</span><br><span class="line">	FROM &#96;boys&#96; b</span><br><span class="line">	INNER JOIN &#96;beauty&#96; g</span><br><span class="line">	ON b.&#96;id&#96;&#x3D;g.&#96;boyfriend_id&#96;</span><br><span class="line">	WHERE g.&#96;name&#96;&#x3D;beautyName;</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">CALL myp5(&#39;小昭&#39;,@bName,@usercp)$</span><br><span class="line"></span><br><span class="line">#4、创建带inout模式参数的存储过程</span><br><span class="line">#案例1：传入a和b两个值，最终a和b都翻倍并返回</span><br><span class="line">CREATE PROCEDURE myp6(INOUT a INT,INOUT b INT)</span><br><span class="line">BEGIN</span><br><span class="line">	SET a&#x3D;a*2;</span><br><span class="line">	SET b&#x3D;b*2;</span><br><span class="line">END$</span><br><span class="line"></span><br><span class="line">SET @m&#x3D;10$</span><br><span class="line">SET @n&#x3D;20$</span><br><span class="line"></span><br><span class="line">CALL myp6(@m,@n)$</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-存储过程的删除与查看"><a href="#1-4-存储过程的删除与查看" class="headerlink" title="1.4 存储过程的删除与查看"></a>1.4 存储过程的删除与查看</h4><p>删除存储过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop procedure 存储过程名;</span><br></pre></td></tr></table></figure>
+
+<p>查看存储过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create procedure 存储过程名;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2. 函数"></a>2. 函数</h3><h4 id="2-1-基本介绍"><a href="#2-1-基本介绍" class="headerlink" title="2.1 基本介绍"></a>2.1 基本介绍</h4><p>定义：一组预先编译好的sql语句的集合，可理解成批处理语句；</p>
+<p>优点：</p>
+<ul>
+<li>提高代码的重用性；</li>
+<li>简化操作；</li>
+<li>减少编译次数并且减少了和数据库服务器的链接次数，提高了效率；</li>
+</ul>
+<p>函数与存储过程的区别：</p>
+<ul>
+<li>存储过程可以有0个返回，也可以有多个返回，适合批量插入和更新；</li>
+<li>函数有且仅有1个返回，适合处理数据后返回一个结果；</li>
+</ul>
+<h4 id="2-2-相关语法"><a href="#2-2-相关语法" class="headerlink" title="2.2 相关语法"></a>2.2 相关语法</h4><p>1、创建语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create function 函数名(参数列表) returns 返回类型</span><br><span class="line">begin</span><br><span class="line">	函数体</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p><em>注：</em></p>
+<ul>
+<li>参数列表包含两部分：参数名 参数类型；</li>
+<li>函数体肯定有return语句，如果没有会报错；</li>
+<li>函数体中仅有一句话时，则可以省略begin end；</li>
+<li>使用delimiter语句设置结束标记；</li>
+</ul>
+<p>2、调用语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select 函数名(参数列表);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-案例演示"><a href="#2-3-案例演示" class="headerlink" title="2.3 案例演示"></a>2.3 案例演示</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#1、无参有返回</span><br><span class="line">#案例1：返回员工个数</span><br><span class="line">CREATE FUNCTION myf1() RETURNS INT</span><br><span class="line">BEGIN </span><br><span class="line">	DECLARE c INT;</span><br><span class="line">	SELECT COUNT(*) INTO c</span><br><span class="line">	FROM &#96;employees&#96;;</span><br><span class="line">	RETURN c;</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">SELECT myf1()$</span><br><span class="line"></span><br><span class="line">#2、有参有返回</span><br><span class="line">#案例1：根据员工名，返回工资</span><br><span class="line">CREATE FUNCTION myf2(empName VARCHAR(20)) RETURNS DOUBLE</span><br><span class="line">BEGIN</span><br><span class="line">	SET @sal&#x3D;0;</span><br><span class="line">	SELECT &#96;salary&#96; INTO @sal</span><br><span class="line">	FROM &#96;employees&#96;</span><br><span class="line">	WHERE &#96;last_name&#96;&#x3D;empName;</span><br><span class="line">	RETURN @sal;</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">SELECT myf2(&#39;kochhar&#39;)$</span><br><span class="line"></span><br><span class="line">#案例2：根据部门名，返回该部门的平均工资</span><br><span class="line">CREATE FUNCTION myf3(deptName VARCHAR(20)) RETURNS DOUBLE</span><br><span class="line">BEGIN</span><br><span class="line">	DECLARE sal DOUBLE;</span><br><span class="line">	SELECT AVG(salary) INTO sal</span><br><span class="line">	FROM &#96;employees&#96; e</span><br><span class="line">	JOIN &#96;departments&#96; d</span><br><span class="line">	ON e.&#96;department_id&#96;&#x3D;d.&#96;department_id&#96;</span><br><span class="line">	WHERE d.&#96;department_name&#96;&#x3D;deptName;</span><br><span class="line">	RETURN sal;</span><br><span class="line">END $</span><br><span class="line"></span><br><span class="line">SELECT myf3(&#39;IT&#39;)$</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-函数的删除与查看"><a href="#2-4-函数的删除与查看" class="headerlink" title="2.4 函数的删除与查看"></a>2.4 函数的删除与查看</h4><p>删除函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop function 函数名;</span><br></pre></td></tr></table></figure>
+
+<p>查看函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create function 函数名;</span><br></pre></td></tr></table></figure>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -195,10 +276,73 @@
       
 
       
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://junejijun.github.io/2020/05/01/%E7%AC%AC%E5%85%AD%E8%AE%B2%EF%BC%9A%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E5%92%8C%E5%87%BD%E6%95%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/30/%E7%AC%AC%E4%BA%94%E8%AE%B2%EF%BC%9A%E5%8F%98%E9%87%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第五讲：变量</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -218,660 +362,14 @@
 
 
 
-
-  
-    <article id="post-第五讲：变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/30/%E7%AC%AC%E4%BA%94%E8%AE%B2%EF%BC%9A%E5%8F%98%E9%87%8F/">第五讲：变量</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/30/%E7%AC%AC%E4%BA%94%E8%AE%B2%EF%BC%9A%E5%8F%98%E9%87%8F/" class="archive-article-date">
-  	<time datetime="2020-04-30T07:00:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了系统变量和自定义变量。</p>
-        
-          <a class="article-more-a" href="/2020/04/30/%E7%AC%AC%E4%BA%94%E8%AE%B2%EF%BC%9A%E5%8F%98%E9%87%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第四讲：视图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/29/%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E8%A7%86%E5%9B%BE/">第四讲：视图</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/29/%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E8%A7%86%E5%9B%BE/" class="archive-article-date">
-  	<time datetime="2020-04-29T11:35:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了视图的概念、相关操作和与表的区别。</p>
-        
-          <a class="article-more-a" href="/2020/04/29/%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E8%A7%86%E5%9B%BE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第三讲：SQL语言的学习（六）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/28/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/">第三讲：SQL语言的学习（六）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/28/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-04-28T10:27:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了DDL和TCL这两种SQL中的语言。</p>
-        
-          <a class="article-more-a" href="/2020/04/28/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第三讲：SQL语言的学习（五）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/">第三讲：SQL语言的学习（五）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-04-27T07:12:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了DML语言（数据操作语言），主要包含有插入语句、修改语句和删除语句。</p>
-        
-          <a class="article-more-a" href="/2020/04/27/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第三讲：SQL语言的学习（四）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/26/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/">第三讲：SQL语言的学习（四）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/26/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-04-26T13:23:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了子查询、分页查询和联合查询。</p>
-        
-          <a class="article-more-a" href="/2020/04/26/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第三讲：SQL语言的学习（三）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/25/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/">第三讲：SQL语言的学习（三）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/25/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-04-25T14:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了分组函数、分组查询和连接查询下的92和99标准。</p>
-        
-          <a class="article-more-a" href="/2020/04/25/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第三讲：SQL语言的学习（二）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/24/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/">第三讲：SQL语言的学习（二）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/24/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-04-24T08:02:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了排序查询和单行函数（字符函数、数学函数、日期函数、系统函数和流程控制函数）。</p>
-        
-          <a class="article-more-a" href="/2020/04/24/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第三讲：SQL语言的学习（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/23/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/">第三讲：SQL语言的学习（一）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/23/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2020-04-23T12:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了SQL语言的分类、DQL语言中的基础查询和条件查询语法。</p>
-        
-          <a class="article-more-a" href="/2020/04/23/%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9ASQL%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第二讲：MySQL的安装与使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/22/%E7%AC%AC%E4%BA%8C%E8%AE%B2%EF%BC%9AMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">第二讲：MySQL的安装与使用</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/22/%E7%AC%AC%E4%BA%8C%E8%AE%B2%EF%BC%9AMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-04-22T06:22:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>导语</strong>：介绍了MySQL服务的启动与停止方法、MySQL服务端的登录与退出指令以及一些常用的SQL命令。</p>
-        
-          <a class="article-more-a" href="/2020/04/22/%E7%AC%AC%E4%BA%8C%E8%AE%B2%EF%BC%9AMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -894,8 +392,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
