@@ -1,58 +1,280 @@
-extends base
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>概念理解 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="NodeJS &#x3D;&#x3D;A runtime environment for executing JavaScript Code&#x3D;&#x3D;  JS代码不能脱离浏览器运行，而NodeJS的出现使得JS代码可以摆脱浏览器，在服务器上运行。其中原由如下：  JS代码不能在计算器上运行的原因是JS代码无法转换为机器代码；  JS代码能在浏览器上运行的原因是浏览器提供了一个V8引擎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概念理解">
+<meta property="og:url" content="http://example.com/2022/06/05/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="NodeJS &#x3D;&#x3D;A runtime environment for executing JavaScript Code&#x3D;&#x3D;  JS代码不能脱离浏览器运行，而NodeJS的出现使得JS代码可以摆脱浏览器，在服务器上运行。其中原由如下：  JS代码不能在计算器上运行的原因是JS代码无法转换为机器代码；  JS代码能在浏览器上运行的原因是浏览器提供了一个V8引擎">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/nodejs%E4%BD%9C%E7%94%A8.png">
+<meta property="og:image" content="http://example.com/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/typescript.png">
+<meta property="article:published_time" content="2022-06-05T02:36:34.420Z">
+<meta property="article:modified_time" content="2022-05-03T01:30:32.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/nodejs%E4%BD%9C%E7%94%A8.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
-block title
-  title= page.title + ' | ' + config.title
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-block content
-  .post
-    h1.post-title= page.title
-    .post-meta= page.date.format(config.date_format)
-      if page.categories.length > 0
-        span= ' | '
-        span.category
-          for category in page.categories.toArray()
-            a(href=url_for(category.path))= category.name
-      if theme.busuanzi == true
-        script(src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', async)
-        span#busuanzi_container_page_pv= ' | '
-          span#busuanzi_value_page_pv
-          span= ' ' + __('Hits')
-      if theme.wordcount == true
-        include _partial/wordcount.pug
-    if theme.disqus.enable == true
-      a.disqus-comment-count(data-disqus-identifier=page.path, href=url_for(page.path) + '#disqus_thread')
-    if theme.changyan
-      a.ds-thread-count(href=url_for(page.path) + '#SOHUCS')
-        span#changyan_count_unit(style='font-size: 15px; color: #6E7173;') 0
-        span= ' ' + __('Comment')
-      script(src='https://assets.changyan.sohu.com/upload/plugins/plugins.count.js', async)
-    if theme.valine.enable == true
-      a.disqus-comment-count(href=url_for(page.path) + '#vcomment')
-        span.valine-comment-count(data-xid=url_for(page.path))
-        span= ' ' + __('Comment')
-    if theme.waline.enable == true
-      a.disqus-comment-count(href=url_for(page.path) + '#vcomment')
-        span.waline-comment-count(id=url_for(page.path))
-        span= ' ' + __('Comment')
-    if page.toc
-      .clear
-        #toc.toc-article
-          .toc-title= __('contents')
-          != toc(page.content, {list_number: theme.toc_number})
-    .post-content
-      != page.content
-    if theme.donate.enable == true && page.donate != false
-      include _widget/donate.pug
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-    if theme.post_copyright.enable == true && page.copyright != false
-      include _widget/copyright.pug
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
 
-    if theme.shareto == true
-      script(type='text/javascript', src=url_for(theme.js) + '/share.js' + '?v=' + theme.version, async)
-      a.article-share-link(data-url=page.permalink, data-id=page._id, data-qrcode=qrcode(page.permalink))= __('shareto')
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
 
-    include _partial/tag.pug
-    include _partial/post_nav.pug
+      <div class="outer">
+        <section id="main"><article id="post-概念理解" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/05/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/" class="article-date">
+  <time class="dt-published" datetime="2022-06-05T02:36:34.420Z" itemprop="datePublished">2022-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      概念理解
+    </h1>
+  
 
-    if page.comments
-      include _partial/comments.pug
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h1><ul>
+<li><p>&#x3D;&#x3D;A runtime environment for executing JavaScript Code&#x3D;&#x3D;</p>
+</li>
+<li><p>JS代码不能脱离浏览器运行，而NodeJS的出现使得JS代码可以摆脱浏览器，在服务器上运行。其中原由如下：</p>
+<ul>
+<li><p>JS代码不能在计算器上运行的原因是JS代码无法转换为机器代码；</p>
+</li>
+<li><p>JS代码能在浏览器上运行的原因是浏览器提供了一个V8引擎，该引擎可以把JS代码编译成机器代码；</p>
+</li>
+<li><p>NodeJS是V8引擎的容器，且NodeJS是用C++编写的，因而可以直接在计算器上运行；</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/nodejs%E4%BD%9C%E7%94%A8.png"></p>
+<ul>
+<li><p>NodeJS其他作用</p>
+<ul>
+<li>读、写电脑上的文件；</li>
+<li>连接数据库；</li>
+<li>充当Web服务器；</li>
+</ul>
+</li>
+</ul>
+<h1 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h1><ul>
+<li>全称node package manager，是一个软件包仓库，存放node包；</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_53430951/article/details/111132595">npm与yarn的区别</a></p>
+<h1 id="JS框架（JS库）"><a href="#JS框架（JS库）" class="headerlink" title="JS框架（JS库）"></a>JS框架（JS库）</h1><p>&#x3D;&#x3D;You call library，framework calls you：库是被你调用的，而框架则是调用你的代码。&#x3D;&#x3D;</p>
+<ul>
+<li>jQuery</li>
+<li>Vue.js <a target="_blank" rel="noopener" href="https://www.runoob.com/vue2/vue-tutorial.html">Vue.js教程</a></li>
+<li>React <a target="_blank" rel="noopener" href="https://www.runoob.com/react/react-tutorial.html">React教程</a></li>
+<li>Angular.js <a target="_blank" rel="noopener" href="https://www.runoob.com/angularjs/angularjs-intro.html">AngularJS教程</a></li>
+</ul>
+<h1 id="UI框架"><a href="#UI框架" class="headerlink" title="UI框架"></a>UI框架</h1><ul>
+<li>ElementUI</li>
+<li>LayUI</li>
+<li>bootStrap</li>
+</ul>
+<h1 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h1><ul>
+<li>TypeScript是JavaScript的超集，扩展了JavaScript的语法</li>
+</ul>
+<p><img src="/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/typescript.png"></p>
+<h1 id="EJS"><a href="#EJS" class="headerlink" title="EJS"></a>EJS</h1><h1 id="前端设计模式"><a href="#前端设计模式" class="headerlink" title="前端设计模式"></a>前端设计模式</h1><ul>
+<li><p>MVC</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/macliu/p/5238734.html">我对前端MVC的理解</a></li>
+</ul>
+</li>
+<li><p>MVVM（Model-View-ViewModel）</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Renyi-Fan/p/9907188.html">前端框架MVVM是什么（整理）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29722281/article/details/99717680">前端框架MVC和MVVM的理解</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/05/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/" data-id="cl40pvdp50006rwtuh3y379pj" data-title="概念理解" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">前端开发</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/05/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/">概念理解</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E4%B8%80%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/">一天一个小技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Postman使用教程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,58 +1,389 @@
-extends base
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Postman使用教程 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1. Postman工具介绍1.1 Workspaces界面  &#x3D;&#x3D;Collection&#x3D;&#x3D;：接口测试项目  APIs：API文档  &#x3D;&#x3D;Environments&#x3D;&#x3D;：环境变量、全局变量  &#x3D;&#x3D;Mock Servers&#x3D;&#x3D;：模拟服务器  Monitors：监听器  History">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Postman使用教程">
+<meta property="og:url" content="http://example.com/2022/06/05/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. Postman工具介绍1.1 Workspaces界面  &#x3D;&#x3D;Collection&#x3D;&#x3D;：接口测试项目  APIs：API文档  &#x3D;&#x3D;Environments&#x3D;&#x3D;：环境变量、全局变量  &#x3D;&#x3D;Mock Servers&#x3D;&#x3D;：模拟服务器  Monitors：监听器  History">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A21.png">
+<meta property="og:image" content="http://example.com/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A22.png">
+<meta property="og:image" content="http://example.com/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A23.png">
+<meta property="og:image" content="http://example.com/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A24.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/environments1.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/environments2.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%8E%A5%E5%8F%A3%E5%85%B3%E8%81%941.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%8E%A5%E5%8F%A3%E5%85%B3%E8%81%942.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%8E%A5%E5%8F%A3%E5%85%B3%E8%81%943.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E5%86%85%E7%BD%AE%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B01.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B02.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%AD%E8%A8%801.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%AD%E8%A8%802.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%89%B9%E9%87%8F%E8%BF%90%E8%A1%8C.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A81.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A82.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A83.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A81.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A82.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A83.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A84.png">
+<meta property="og:image" content="http://example.com/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A85.png">
+<meta property="article:published_time" content="2022-06-05T02:36:34.280Z">
+<meta property="article:modified_time" content="2022-04-05T12:43:56.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A21.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
-block title
-  title= page.title + ' | ' + config.title
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-block content
-  .post
-    h1.post-title= page.title
-    .post-meta= page.date.format(config.date_format)
-      if page.categories.length > 0
-        span= ' | '
-        span.category
-          for category in page.categories.toArray()
-            a(href=url_for(category.path))= category.name
-      if theme.busuanzi == true
-        script(src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', async)
-        span#busuanzi_container_page_pv= ' | '
-          span#busuanzi_value_page_pv
-          span= ' ' + __('Hits')
-      if theme.wordcount == true
-        include _partial/wordcount.pug
-    if theme.disqus.enable == true
-      a.disqus-comment-count(data-disqus-identifier=page.path, href=url_for(page.path) + '#disqus_thread')
-    if theme.changyan
-      a.ds-thread-count(href=url_for(page.path) + '#SOHUCS')
-        span#changyan_count_unit(style='font-size: 15px; color: #6E7173;') 0
-        span= ' ' + __('Comment')
-      script(src='https://assets.changyan.sohu.com/upload/plugins/plugins.count.js', async)
-    if theme.valine.enable == true
-      a.disqus-comment-count(href=url_for(page.path) + '#vcomment')
-        span.valine-comment-count(data-xid=url_for(page.path))
-        span= ' ' + __('Comment')
-    if theme.waline.enable == true
-      a.disqus-comment-count(href=url_for(page.path) + '#vcomment')
-        span.waline-comment-count(id=url_for(page.path))
-        span= ' ' + __('Comment')
-    if page.toc
-      .clear
-        #toc.toc-article
-          .toc-title= __('contents')
-          != toc(page.content, {list_number: theme.toc_number})
-    .post-content
-      != page.content
-    if theme.donate.enable == true && page.donate != false
-      include _widget/donate.pug
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-    if theme.post_copyright.enable == true && page.copyright != false
-      include _widget/copyright.pug
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
 
-    if theme.shareto == true
-      script(type='text/javascript', src=url_for(theme.js) + '/share.js' + '?v=' + theme.version, async)
-      a.article-share-link(data-url=page.permalink, data-id=page._id, data-qrcode=qrcode(page.permalink))= __('shareto')
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
 
-    include _partial/tag.pug
-    include _partial/post_nav.pug
+      <div class="outer">
+        <section id="main"><article id="post-Postman使用教程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/05/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="article-date">
+  <time class="dt-published" datetime="2022-06-05T02:36:34.280Z" itemprop="datePublished">2022-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Postman使用教程
+    </h1>
+  
 
-    if page.comments
-      include _partial/comments.pug
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Postman工具介绍"><a href="#1-Postman工具介绍" class="headerlink" title="1. Postman工具介绍"></a>1. Postman工具介绍</h1><h2 id="1-1-Workspaces界面"><a href="#1-1-Workspaces界面" class="headerlink" title="1.1 Workspaces界面"></a>1.1 Workspaces界面</h2><p><img src="/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A21.png"></p>
+<ul>
+<li><p>&#x3D;&#x3D;Collection&#x3D;&#x3D;：接口测试项目</p>
+</li>
+<li><p>APIs：API文档</p>
+</li>
+<li><p>&#x3D;&#x3D;Environments&#x3D;&#x3D;：环境变量、全局变量</p>
+</li>
+<li><p>&#x3D;&#x3D;Mock Servers&#x3D;&#x3D;：模拟服务器</p>
+</li>
+<li><p>Monitors：监听器</p>
+</li>
+<li><p>History：请求的历史记录</p>
+</li>
+</ul>
+<h2 id="1-2-请求页签界面"><a href="#1-2-请求页签界面" class="headerlink" title="1.2 请求页签界面"></a>1.2 请求页签界面</h2><p><img src="/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A22.png"></p>
+<ul>
+<li><p>&#x3D;&#x3D;Params：get请求传参参数&#x3D;&#x3D;</p>
+</li>
+<li><p>Authorization：鉴权，常用Type是Bearer Token和Basic Auth</p>
+</li>
+<li><p>Headers：输入请求头</p>
+</li>
+<li><p>&#x3D;&#x3D;Body：post请求传参参数&#x3D;&#x3D;</p>
+</li>
+<li><p>Pre-request Script：请求之前需要执行的脚本</p>
+</li>
+<li><p>Tests：请求之后的断言</p>
+</li>
+<li><p>Settings：请求相关设置</p>
+</li>
+</ul>
+<p><img src="/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A23.png"></p>
+<ul>
+<li>none：没有参数</li>
+<li>&#x3D;&#x3D;form-data&#x3D;&#x3D;：既可以传键值对参数，也可以传文件</li>
+<li>&#x3D;&#x3D;x-www-form-urlencoded&#x3D;&#x3D;：只能传键值对参数</li>
+<li>&#x3D;&#x3D;raw&#x3D;&#x3D;：可以传多种类型的参数，如JSON、JavaScript、Text、HTML、XML</li>
+<li>&#x3D;&#x3D;binary&#x3D;&#x3D;：把文件以二进制的形式进行传参</li>
+<li>GraphQL（用的比较少）</li>
+</ul>
+<h2 id="1-3-响应页签界面"><a href="#1-3-响应页签界面" class="headerlink" title="1.3 响应页签界面"></a>1.3 响应页签界面</h2><p><img src="/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/postman%E7%95%8C%E9%9D%A24.png"></p>
+<ul>
+<li>&#x3D;&#x3D;Body：接口返回的数据&#x3D;&#x3D;<ul>
+<li>Pretty：支持以不同的格式查看返回的数据，如JSON、Text、HTML、XML</li>
+<li>Raw：以文本的形式查看返回的数据</li>
+<li>Preview：以网页的形式查看返回的数据</li>
+</ul>
+</li>
+<li>Cookies：响应的Cookies信息</li>
+<li>Headers：响应头</li>
+<li>&#x3D;&#x3D;Test Results：断言的结果&#x3D;&#x3D;</li>
+</ul>
+<h1 id="2-常用功能演示"><a href="#2-常用功能演示" class="headerlink" title="2. 常用功能演示"></a>2. 常用功能演示</h1><h2 id="2-1-环境变量与全局变量"><a href="#2-1-环境变量与全局变量" class="headerlink" title="2.1 环境变量与全局变量"></a>2.1 环境变量与全局变量</h2><h3 id="2-1-1-环境变量"><a href="#2-1-1-环境变量" class="headerlink" title="2.1.1 环境变量"></a>2.1.1 环境变量</h3><p><strong>解决的问题</strong>：针对不同环境（如开发环境、测试环境、生产环境等），其请求的IP地址是不同的。</p>
+<p><strong>解决的方案</strong>：</p>
+<ul>
+<li>第一步：设置环境变量，VARIABLE名称要一致</li>
+<li>第二步：以的形式替换url中的IP地址来获取对应环境下的环境变量值</li>
+<li>第三步：选择对应的环境变量</li>
+</ul>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/environments1.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/environments2.png"></p>
+<h3 id="2-1-2-全局变量"><a href="#2-1-2-全局变量" class="headerlink" title="2.1.2 全局变量"></a>2.1.2 全局变量</h3><p><strong>解决的问题</strong>：（1）接口A中响应的参数需作为接口B请求的参数输入，详细解决的方案见【接口关联】；（2）自定义动态参数设置，详细解决的方案见【自定义动态参数】。</p>
+<h2 id="2-2-接口关联"><a href="#2-2-接口关联" class="headerlink" title="2.2 接口关联"></a>2.2 接口关联</h2><p><strong>解决的问题</strong>：接口A中响应的参数需作为接口B请求的参数输入。</p>
+<p><strong>解决的方案</strong>：</p>
+<ul>
+<li><p>第一步：在接口A请求页签Tests中编写断言，支持使用JSON提取器与正则表达式两种方式实现接口关联；</p>
+</li>
+<li><p>第二步：在接口B请求页签Params中以的形式使用；</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用JSON提取器实现接口关联</span></span><br><span class="line"><span class="keyword">var</span> data = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(responseBody);</span><br><span class="line">pm.<span class="property">globals</span>.<span class="title function_">set</span>(<span class="string">&quot;access_token&quot;</span>, data.<span class="property">access_token</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用正则表达式提取器实现接口关联</span></span><br><span class="line"><span class="keyword">var</span> data = responseBody.<span class="title function_">match</span>(<span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&#x27;:&quot;(.*?)&quot;,&quot;&#x27;</span>));</span><br><span class="line">pm.<span class="property">globals</span>.<span class="title function_">set</span>(<span class="string">&quot;access_token&quot;</span>, data[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%8E%A5%E5%8F%A3%E5%85%B3%E8%81%941.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%8E%A5%E5%8F%A3%E5%85%B3%E8%81%942.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%8E%A5%E5%8F%A3%E5%85%B3%E8%81%943.png"></p>
+<h2 id="2-3-动态参数"><a href="#2-3-动态参数" class="headerlink" title="2.3 动态参数"></a>2.3 动态参数</h2><h3 id="2-3-1-内置动态参数"><a href="#2-3-1-内置动态参数" class="headerlink" title="2.3.1 内置动态参数"></a>2.3.1 内置动态参数</h3><ul>
+<li>：生成当前时间的时间戳
+</li>
+<li>：生成0-1000之间的随机数
+</li>
+<li>：生成随机guid字符串</li>
+</ul>
+<p>&#x3D;&#x3D;内置动态参数无法在断言中使用&#x3D;&#x3D;</p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E5%86%85%E7%BD%AE%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0.png"></p>
+<h4 id="2-3-2-自定义动态参数"><a href="#2-3-2-自定义动态参数" class="headerlink" title="2.3.2 自定义动态参数"></a>2.3.2 自定义动态参数</h4><p>自定义动态参数的配置：</p>
+<ul>
+<li><p>第一步：在接口请求页签Pre-request Script中编写脚本</p>
+</li>
+<li><p>第二步：在接口请求页签Body中以的形式使用</p>
+</li>
+</ul>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B01.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B02.png"></p>
+<h2 id="2-4-断言"><a href="#2-4-断言" class="headerlink" title="2.4 断言"></a>2.4 断言</h2><p>&#x3D;&#x3D;状态断言一般只有一个，且可以设置为全局断言&#x3D;&#x3D;</p>
+<p>&#x3D;&#x3D;业务断言可以有多个&#x3D;&#x3D;</p>
+<ul>
+<li><strong>Status Code</strong>：Code is 200 断言返回的状态码为200 </li>
+<li><strong>Response body</strong>：Contains string 断言返回的body中包含有一个字符串</li>
+<li><strong>Response body</strong>：JSON value check 检查json中的其中的一个值</li>
+<li><strong>Response body</strong>：is equal a string 断言返回的body等于一个字符串</li>
+<li>Response headers：断言响应头包含Content-Type</li>
+<li>Response time is less than 200ms 断言请求的时间少于200ms</li>
+</ul>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%AD%E8%A8%801.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%AD%E8%A8%802.png"></p>
+<p><strong>批量运行接口时，文件上传接口报错问题解决方案</strong>：</p>
+<ul>
+<li><p>第一步：将所需上传的文件复制到<code>C:\Users\June\Postman\files</code></p>
+</li>
+<li><p>第二步：设置允许读取外部目录文件</p>
+</li>
+</ul>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%89%B9%E9%87%8F%E8%BF%90%E8%A1%8C.png"></p>
+<h2 id="2-5-CSV或JSON文件实现数据驱动"><a href="#2-5-CSV或JSON文件实现数据驱动" class="headerlink" title="2.5 CSV或JSON文件实现数据驱动"></a>2.5 CSV或JSON文件实现数据驱动</h2><ul>
+<li><p>第一步：创建CSV或JSON文件</p>
+</li>
+<li><p>第二步：修改请求参数的值，全部以的形式赋值</p>
+</li>
+<li><p>第三步：修改请求页签中Tests的内容</p>
+</li>
+<li><p>第四步：点击Select File选择CSV或JSON文件驱动数据</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//CSV文本内容</span><br><span class="line">grant_type,appid,secret,assert_value</span><br><span class="line">client_credential,wx6b11b3efd1cdc290,106a9c6157c4db5f6029918738f9529d,access_token</span><br><span class="line">,wx6b11b3efd1cdc290,106a9c6157c4db5f6029918738f9529d,40002</span><br><span class="line">client_credential,,106a9c6157c4db5f6029918738f9529d,41002</span><br><span class="line">client_credential,wx6b11b3efd1cdc290,,41004</span><br><span class="line"></span><br><span class="line">//JSON文本内容</span><br><span class="line">[</span><br><span class="line">	&#123;&quot;grant_type&quot;:&quot;client_credential&quot;,&quot;appid&quot;:&quot;wx6b11b3efd1cdc290&quot;,&quot;secret&quot;:&quot;106a9c6157c4db5f6029918738f9529d&quot;,&quot;assert_value&quot;:&quot;access_token&quot;&#125;,</span><br><span class="line">	&#123;&quot;grant_type&quot;:&quot;&quot;,&quot;appid&quot;:&quot;wx6b11b3efd1cdc290&quot;,&quot;secret&quot;:&quot;106a9c6157c4db5f6029918738f9529d&quot;,&quot;assert_value&quot;:40002&#125;,</span><br><span class="line">	&#123;&quot;grant_type&quot;:&quot;client_credential&quot;,&quot;appid&quot;:&quot;&quot;,&quot;secret&quot;:&quot;106a9c6157c4db5f6029918738f9529d&quot;,&quot;assert_value&quot;:41002&#125;,</span><br><span class="line">	&#123;&quot;grant_type&quot;:&quot;client_credential&quot;,&quot;appid&quot;:&quot;wx6b11b3efd1cdc290&quot;,&quot;secret&quot;:&quot;&quot;,&quot;assert_value&quot;:41004&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A81.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A82.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A83.png"></p>
+<h2 id="2-6-Mock-Servers"><a href="#2-6-Mock-Servers" class="headerlink" title="2.6 Mock Servers"></a>2.6 Mock Servers</h2><p><strong>使用场景</strong>：前后端分离，后端的接口没有完成，但是前端已经完成了，且前端的业务流程依赖于后端的接口。</p>
+<p>创建一个新的mock server后，软件会自动创建对应的环境变量与Collection</p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A81.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A82.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A83.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A84.png"></p>
+<p><img src="/3.x%E5%B9%B3%E5%8F%B0%E5%88%9D%E5%A7%8B%E5%8C%96/%E6%A8%A1%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A85.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/05/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-id="cl40pvdp30003rwtucgd0hnuk" data-title="Postman使用教程" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/05/%E4%B8%80%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          一天一个小技巧
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/05/3.x%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">3.x平台开发</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/05/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/">概念理解</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E4%B8%80%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/">一天一个小技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Postman使用教程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

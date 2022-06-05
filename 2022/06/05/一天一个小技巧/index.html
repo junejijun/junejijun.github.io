@@ -1,58 +1,256 @@
-extends base
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>一天一个小技巧 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Word使用（1）word文档部分复制  将光标放在需要复制文本内容的起始位置；  滑动右侧的滚动条，不要点击文本内容以避免光标位置发生变化；  滑动到需要复制文本内容的结束位置，按下Shift键，并鼠标点击到结束位置，从而实现了部分文档内容选中；  最后便可进行CV操作。   参考网址：打开一个巨大的WORD文件，如何快速选中其中的一部分（也非常大）？ （2）word常用快捷键  表格中行整体上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一天一个小技巧">
+<meta property="og:url" content="http://example.com/2022/06/05/%E4%B8%80%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Word使用（1）word文档部分复制  将光标放在需要复制文本内容的起始位置；  滑动右侧的滚动条，不要点击文本内容以避免光标位置发生变化；  滑动到需要复制文本内容的结束位置，按下Shift键，并鼠标点击到结束位置，从而实现了部分文档内容选中；  最后便可进行CV操作。   参考网址：打开一个巨大的WORD文件，如何快速选中其中的一部分（也非常大）？ （2）word常用快捷键  表格中行整体上">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-05T02:36:34.310Z">
+<meta property="article:modified_time" content="2022-04-18T00:41:28.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
-block title
-  title= page.title + ' | ' + config.title
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-block content
-  .post
-    h1.post-title= page.title
-    .post-meta= page.date.format(config.date_format)
-      if page.categories.length > 0
-        span= ' | '
-        span.category
-          for category in page.categories.toArray()
-            a(href=url_for(category.path))= category.name
-      if theme.busuanzi == true
-        script(src='https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', async)
-        span#busuanzi_container_page_pv= ' | '
-          span#busuanzi_value_page_pv
-          span= ' ' + __('Hits')
-      if theme.wordcount == true
-        include _partial/wordcount.pug
-    if theme.disqus.enable == true
-      a.disqus-comment-count(data-disqus-identifier=page.path, href=url_for(page.path) + '#disqus_thread')
-    if theme.changyan
-      a.ds-thread-count(href=url_for(page.path) + '#SOHUCS')
-        span#changyan_count_unit(style='font-size: 15px; color: #6E7173;') 0
-        span= ' ' + __('Comment')
-      script(src='https://assets.changyan.sohu.com/upload/plugins/plugins.count.js', async)
-    if theme.valine.enable == true
-      a.disqus-comment-count(href=url_for(page.path) + '#vcomment')
-        span.valine-comment-count(data-xid=url_for(page.path))
-        span= ' ' + __('Comment')
-    if theme.waline.enable == true
-      a.disqus-comment-count(href=url_for(page.path) + '#vcomment')
-        span.waline-comment-count(id=url_for(page.path))
-        span= ' ' + __('Comment')
-    if page.toc
-      .clear
-        #toc.toc-article
-          .toc-title= __('contents')
-          != toc(page.content, {list_number: theme.toc_number})
-    .post-content
-      != page.content
-    if theme.donate.enable == true && page.donate != false
-      include _widget/donate.pug
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
-    if theme.post_copyright.enable == true && page.copyright != false
-      include _widget/copyright.pug
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
 
-    if theme.shareto == true
-      script(type='text/javascript', src=url_for(theme.js) + '/share.js' + '?v=' + theme.version, async)
-      a.article-share-link(data-url=page.permalink, data-id=page._id, data-qrcode=qrcode(page.permalink))= __('shareto')
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
 
-    include _partial/tag.pug
-    include _partial/post_nav.pug
+      <div class="outer">
+        <section id="main"><article id="post-一天一个小技巧" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/05/%E4%B8%80%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="article-date">
+  <time class="dt-published" datetime="2022-06-05T02:36:34.310Z" itemprop="datePublished">2022-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      一天一个小技巧
+    </h1>
+  
 
-    if page.comments
-      include _partial/comments.pug
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Word使用"><a href="#Word使用" class="headerlink" title="Word使用"></a>Word使用</h1><p><strong>（1）word文档部分复制</strong></p>
+<ol>
+<li><p>将光标放在需要复制文本内容的起始位置；</p>
+</li>
+<li><p>滑动右侧的滚动条，不要点击文本内容以避免光标位置发生变化；</p>
+</li>
+<li><p>滑动到需要复制文本内容的结束位置，按下Shift键，并鼠标点击到结束位置，从而实现了部分文档内容选中；</p>
+</li>
+<li><p>最后便可进行CV操作。</p>
+</li>
+</ol>
+<p><strong>参考网址</strong>：<a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/2009875353818083188.html">打开一个巨大的WORD文件，如何快速选中其中的一部分（也非常大）？</a></p>
+<p><strong>（2）word常用快捷键</strong></p>
+<ol>
+<li>表格中行整体上下移动：Alt + Shift + ↑&#x2F;↓；</li>
+</ol>
+<h1 id="Excel使用"><a href="#Excel使用" class="headerlink" title="Excel使用"></a>Excel使用</h1><ol>
+<li>根据填入值使某一列单元格显示样式不同</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//数据-条件格式</span><br><span class="line">自定义工时：=$E2=&quot;否&quot;</span><br><span class="line">应用范围：$C$2:$C$10003</span><br></pre></td></tr></table></figure>
+
+<h1 id="WebStorm使用"><a href="#WebStorm使用" class="headerlink" title="WebStorm使用"></a>WebStorm使用</h1><ol>
+<li>局部查找字段：Ctrl + F</li>
+<li>全局查找字段：Ctrl + Shift + F</li>
+<li>查找文件：Ctrl + Shift+ N</li>
+</ol>
+<p>参考网址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weisong530624687/article/details/79012508">WebStorm常用快捷键</a></p>
+<h1 id="IDEA使用"><a href="#IDEA使用" class="headerlink" title="IDEA使用"></a>IDEA使用</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/06/05/%E4%B8%80%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/" data-id="cl40pvdp20002rwtucefkf2nz" data-title="一天一个小技巧" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          前端学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/05/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Postman使用教程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/05/%E6%A6%82%E5%BF%B5%E7%90%86%E8%A7%A3/">概念理解</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/%E4%B8%80%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7/">一天一个小技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/05/Postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Postman使用教程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
